@@ -7,8 +7,10 @@ def check_majority(a, l, r):
     if l == -1 and r == -1:
         return -1
     elif a.count(l) > len(a)//2:
+        print(f'return left: {l}')
         return l
     elif a.count(r) > len(a)//2:
+        print(f'return right: {r}')
         return r
     else:
         return -1
@@ -21,10 +23,12 @@ def get_majority_element(a, left, right):
     if left + 1 == right:
         return a[left]
     #write your code here
-    m = (len(a)-1) // 2
-    l = get_majority_element(a[:m+1], 0, len(a[:m+1])-1)
-    r = get_majority_element(a[m+1:], 0, len(a[m+1:])-1)
-    # print(f'a: {a}, left: {l}, right: {r}')
+    m = len(a) // 2
+
+    l = get_majority_element(a[:m], 0, len(a[:m])-1)
+    r = get_majority_element(a[m:], 0, len(a[m:])-1)
+    print(f'left array: {a[:m]}, right array: {a[m:]}')
+    print(f'a: {a}, left: {l}, right: {r}')
     return check_majority(a, l, r)
 
 def brute_force(a):
