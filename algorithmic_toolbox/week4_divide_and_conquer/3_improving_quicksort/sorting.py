@@ -51,18 +51,36 @@ def brute(a):
     a.sort()
 
 if __name__ == '__main__':
-    # input = sys.stdin.read()
-    # n, *a = list(map(int, input.split()))
+    # correct recursion depth but solution is timing out now, try Hoare's partition
+    # sys.setrecursionlimit(15000) 
+    input = sys.stdin.read()
+    n, *a = list(map(int, input.split()))
     
-    # randomized_quick_sort(a, 0, n - 1)
-    # for x in a:
-    #     print(x, end=' ')
+    randomized_quick_sort(a, 0, n - 1)
+    for x in a:
+        print(x, end=' ')
 
-    a = [ random.randint(0, 5) for i in range(5) ]
-    b = sorted(a)
     
-    randomized_quick_sort(b, 0, len(a)-1)
-    print('sorted a', sorted(a), 'b', b)
-    print(sorted(a) == b)
+    
+    
+    
+
+    # equal = True
+    # i = 0
+    # while equal and i < 1000000:
+        # a = [ random.randint(1,5) for i in range(5) ]
+        # 2871
+    # a = [ random.randint(1,3) for i in range(10000) ]
+    # b = list(a)
+    # randomized_quick_sort(b, 0, len(a)-1)
+
+    # if sorted(a) != b:
+    #     print(f'i: {i}')
+    #     print(a)
+    #     print(f'sorted a: {a}')
+    #     print(f'quick_sort3 {b}')
+    #     equal = False
+    
+    # i += 1
 
     
