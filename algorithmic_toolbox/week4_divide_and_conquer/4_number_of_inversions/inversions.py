@@ -3,7 +3,8 @@ import sys
 import random
 
 def merge_sort(a1, a2):
-    # print('a1:', a1, 'a2:', a2)
+    print('merge')
+    print('a1:', a1, 'a2:', a2)
     inversions = 0
     a_prime = []
     i, j = 0, 0
@@ -17,25 +18,30 @@ def merge_sort(a1, a2):
             a_prime.append(c)
             inversions += len(a1) - i
             j += 1
-        # print('a prime_', a_prime)
+        print('a prime_', a_prime)
     if i < len(a1):
         a_prime += a1[i:]
     if j < len(a2):
-        # print('len a2', len(a2))
+        print('len a2', len(a2))
         a_prime += a2[j:]
-    # print('i:', i, 'j:', j)
-    # print('a prime:', a_prime, '\n')
-    return inversions
+    print('i:', i, 'j:', j)
+    print('a prime:', a_prime, '\n')
+    return inversions, a_prime
 
 def get_number_of_inversions(a, b, left, right):
     number_of_inversions = 0
     if right - left <= 1:
-        return number_of_inversions
+        return number_of_inversions, a
     ave = (left + right) // 2
-    number_of_inversions += get_number_of_inversions(a, b, left, ave)
-    number_of_inversions += get_number_of_inversions(a, b, ave, right)
-    number_of_inversions += merge_sort(a[left:ave], a[ave:right])
-    return number_of_inversions
+    inv_l, a_l = get_number_of_inversions(a, b, left, ave)
+    print('a_l', a_l)
+    number_of_inversions += inv_l
+    inv_r, a_r = get_number_of_inversions(a, b, ave, right)
+    print('a_r', a_r)
+    number_of_inversions += inv_r
+    inv_s, a_s = merge_sort(a_l, a_r)
+    number_of_inversions += inv_s
+    return number_of_inversions, a_s
 
 def brute(a):
     inversions = 0
@@ -50,9 +56,9 @@ if __name__ == '__main__':
     input = sys.stdin.read()
     n, *a = list(map(int, input.split()))
     b = n * [0]
-    # print('a:', a)
-    # print(get_number_of_inversions(a, b, 0, len(a)))
-    print(brute([4,1,5,2,5,2]))
+    print('a:', a, 'len(a)', len(a))
+    inv, a_prime = get_number_of_inversions(a, b, 0, len(a))
+    print(inv)
 
     # equal = True
     # i = 0
