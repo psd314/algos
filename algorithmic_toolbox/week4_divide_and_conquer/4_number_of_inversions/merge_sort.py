@@ -1,33 +1,42 @@
 import sys
 
-def merge(B, C):
-    A_prime = []
-    i, j = 0, 0
+def merge(a, l, m, r):
+    B = a[:m+1]
+    C = a[m+1: ]
+
+    i, j, k = 0, 0, 0    
     while i < len(B) and j < len(C):
-        b = B[i]
-        c = C[j]
-        if b <= c:
-            A_prime.append(b)
+        if B[i] <= C[j]:
+            a[k] = B[i]
             i += 1
         else:
-            A_prime.append(c)
+            a[k] = C[j]
             j += 1
-    if i < len(B) - 1:
-        A_prime.append(B[i:])
-    if j < len(C) - 1:
-        A_prime.append(C[j:])
-    return A_prime
+        k += 1
     
-def merge_sort(A):
+    while i < len(B):
+        a[k] = B[i]
+        i += 1
+        k += 1
+    
+    while j < len(C):
+        a[k] = C[j]
+        j += 1
+        k += 1
+
+
+    return a
+    
+def merge_sort(A, left, right):
     if len(A) == 1:
         return A
 
     m = len(A) // 2
-    B = merge_sort(A[:m+1])
-    C = merge_sort(B[m+1:])
-    A_prime = merge(B, C)
+    B = merge_sort(A, left, m)
+    C = merge_sort(A, m+1, right)
+    A_prime = merge(A, left, m, right)
     return A_prime
 
 a = [4, 1, 5, 2, 5]
 
-print(merge_sort(a))
+print(merge_sort(a, 0, len(a)-1))
