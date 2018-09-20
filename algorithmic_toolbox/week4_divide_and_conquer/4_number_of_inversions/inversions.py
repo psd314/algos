@@ -62,3 +62,5 @@ if __name__ == '__main__':
 #         print('brute:', x)
 #         print('solution:', y)
 #     i += 1
+
+#solved
