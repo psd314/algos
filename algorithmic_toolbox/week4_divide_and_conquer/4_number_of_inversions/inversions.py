@@ -2,46 +2,37 @@
 import sys
 import random
 
-def merge_sort(a1, a2):
-    print('merge')
-    print('a1:', a1, 'a2:', a2)
-    inversions = 0
+def merge_count(A, B):
+    inv = 0
     a_prime = []
     i, j = 0, 0
-    while i < len(a1) and j < len(a2):
-        b = a1[i]
-        c = a2[j]
-        if b <= c:
-            a_prime.append(b)
-            i += 1
-        else:
-            a_prime.append(c)
-            inversions += len(a1) - i
+    while i < len(A) and j < len(B):
+        if A[i] > B[j]:
+            a_prime.append(B[j])
+            inv += len(A) - i
             j += 1
-        print('a prime_', a_prime)
-    if i < len(a1):
-        a_prime += a1[i:]
-    if j < len(a2):
-        print('len a2', len(a2))
-        a_prime += a2[j:]
-    print('i:', i, 'j:', j)
-    print('a prime:', a_prime, '\n')
-    return inversions, a_prime
+        elif A[i] <= B[j]:            
+            a_prime.append(A[i])
+            i += 1
+    if len(A) - i >= 1:
+        a_prime += A[i:]
+    if len(B) - j >= 1:
+        a_prime += B[j:]
+    return inv, a_prime
 
-def get_number_of_inversions(a, b, left, right):
+def get_number_of_inversions(a):
     number_of_inversions = 0
-    if right - left <= 1:
+    if len(a) <= 1:
         return number_of_inversions, a
-    ave = (left + right) // 2
-    inv_l, a_l = get_number_of_inversions(a, b, left, ave)
-    print('a_l', a_l)
-    number_of_inversions += inv_l
-    inv_r, a_r = get_number_of_inversions(a, b, ave, right)
-    print('a_r', a_r)
-    number_of_inversions += inv_r
-    inv_s, a_s = merge_sort(a_l, a_r)
-    number_of_inversions += inv_s
-    return number_of_inversions, a_s
+    m = len(a) // 2
+    inv, a_l = get_number_of_inversions(a[:m])
+    number_of_inversions += inv
+    inv, a_r = get_number_of_inversions(a[m:])
+    number_of_inversions += inv
+    #write your code here
+    inv, a_prime = merge_count(a_l, a_r)
+    number_of_inversions += inv
+    return number_of_inversions, a_prime
 
 def brute(a):
     inversions = 0
@@ -51,27 +42,25 @@ def brute(a):
                 inversions += 1
     return inversions
 
-
 if __name__ == '__main__':
     input = sys.stdin.read()
     n, *a = list(map(int, input.split()))
     b = n * [0]
-    print('a:', a, 'len(a)', len(a))
-    inv, a_prime = get_number_of_inversions(a, b, 0, len(a))
-    print(inv)
+    print(get_number_of_inversions(a)[0])
 
-    # equal = True
-    # i = 0
-    # while equal and i < 10000:
-    #     a = [ random.randint(1,5) for i in range(6) ]
-    #     x = brute(a)
-    #     y = get_number_of_inversions(a, [], 0, len(a))
+# equal = True
+# i = 0
+# while equal and i < 100000:
+#     a = [ random.randint(1,5) for i in range(6) ]
+#     x = brute(a)
+#     y = get_number_of_inversions(a)[0]
 
-    #     if x != y:
-    #         equal = False
-    #         print('i:', i)
-    #         print('a:', a)
-    #         print('brute:', x)
-    #         print('solution:', y)
-    #     i += 1
+#     if x != y:
+#         equal = False
+#         print('i:', i)
+#         print('a:', a)
+#         print('brute:', x)
+#         print('solution:', y)
+#     i += 1
 
+#solved
