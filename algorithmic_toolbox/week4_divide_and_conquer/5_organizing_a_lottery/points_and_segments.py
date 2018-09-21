@@ -6,13 +6,13 @@ def fast_count_segments(starts, ends, points):
     #write your code here
     return cnt
 
-def naive_count_segments(starts, ends, points):
-    cnt = [0] * len(points)
-    for i in range(len(points)):
-        for j in range(len(starts)):
-            if starts[j] <= points[i] <= ends[j]:
-                cnt[i] += 1
-    return cnt
+# def naive_count_segments(starts, ends, points):
+#     cnt = [0] * len(points)
+#     for i in range(len(points)):
+#         for j in range(len(starts)):
+#             if starts[j] <= points[i] <= ends[j]:
+#                 cnt[i] += 1
+#     return cnt
 
 if __name__ == '__main__':
     input = sys.stdin.read()
@@ -23,6 +23,10 @@ if __name__ == '__main__':
     ends   = data[3:2 * n + 2:2]
     points = data[2 * n + 2:]
     #use fast_count_segments
-    cnt = naive_count_segments(starts, ends, points)
-    for x in cnt:
-        print(x, end=' ')
+    # cnt = naive_count_segments(starts, ends, points)
+    # for x in cnt:
+    #     print(x, end=' ')
+
+# test0 - 1 0 0
+# test1 - 0 0 1
+# test2 - 2 0
