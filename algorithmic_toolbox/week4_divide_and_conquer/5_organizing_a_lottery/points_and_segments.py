@@ -11,7 +11,6 @@ def binary_search(val, points):
 def fast_count_segments(starts, ends, points):
     cnt = [0] * len(points)
     #write your code here
-<<<<<<< HEAD
     for i in range(len(starts)):
         if starts[i] == ends[i]:
             cnt = binary_search(starts[i], points)
@@ -30,18 +29,6 @@ def fast_count_segments(starts, ends, points):
 #             if starts[j] <= points[i] <= ends[j]:
 #                 cnt[i] += 1
 #     return cnt
-=======
-    # recursively call r/l
-    return cnt
-
-def naive_count_segments(starts, ends, points):
-    cnt = [0] * len(points)
-    for i in range(len(points)):
-        for j in range(len(starts)):
-            if starts[j] <= points[i] <= ends[j]:
-                cnt[i] += 1
-    return cnt
->>>>>>> 67116b336272570e4b14ee2262fcaa005089fb8e
 
 if __name__ == '__main__':
     input = sys.stdin.read()
@@ -63,9 +50,6 @@ if __name__ == '__main__':
 # test1 - 0 0 1
 # test2 - 2 0
 
-<<<<<<< HEAD
 # foreach segment - binary search endpoints in points, get indexes then subtract
-=======
 # sort points
 # get range of indices (duplicates?) and use for count for each segment
->>>>>>> 67116b336272570e4b14ee2262fcaa005089fb8e
