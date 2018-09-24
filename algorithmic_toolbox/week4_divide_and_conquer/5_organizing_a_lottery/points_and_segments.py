@@ -1,11 +1,15 @@
 # Uses python3
 import sys
 
-def binary_search(val, points):
-    left = 0
-    right = len(points)
-    mid = len(points) // 2
-
+def binary_search(val, points, left, right):
+    if right - left == 0:
+        return right
+    mid = (right - left) // 2
+    if right - left > 1:
+        print()
+    # return index of leftmost/rightmost value, how to determine which direction?
+    # need to preserve original order of points to provide answer, copy points and pass 
+    # a sorted version.  Are points unique?
     return 0
 
 def fast_count_segments(starts, ends, points):
@@ -13,10 +17,10 @@ def fast_count_segments(starts, ends, points):
     #write your code here
     for i in range(len(starts)):
         if starts[i] == ends[i]:
-            cnt = binary_search(starts[i], points)
+            cnt = binary_search(starts[i], points, 0, len(points)-1)
         else:
-            left = binary_search(starts[i], points)
-            right = binary_search(ends[i], points)
+            left = binary_search(starts[i], points, 0, len(points)-1)
+            right = binary_search(ends[i], points, 0, len(points)-1)
             cnt[i] = right - left
     return cnt
 
