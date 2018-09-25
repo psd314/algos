@@ -3,25 +3,46 @@ import sys
 
 def binary_search(val, points, left, right):
     if right - left == 0:
-        return right
+        return left
+
     mid = (right - left) // 2
-    if right - left > 1:
-        print()
-    # return index of leftmost/rightmost value, how to determine which direction?
-    # need to preserve original order of points to provide answer, copy points and pass 
-    # a sorted version.  Are points unique?
-    return 0
+    if val == points[mid]:
+        if mid > 0 and points[mid-1] == val:
+            lefreturnt = binary_search(val, points, 0, mid-1)
+        elif mid > 0 and points[mid-1] != val:
+            left = mid
+
+        if mid < len(points)-1 and points[mid+1] == val:
+            right = binary_search(val, points, mid+1, len(points)-1)
+        elif mid < len(points)-1 and points[mid+1] != val:
+            right = mid
+
+        return (left, right)
+    elif val < a[mid]:
+        return binary_search(val, points, left, mid-1)
+    else:
+        return binary_search(val, points, mid+1, right)
+
+
+
+    # return tuple of index of leftmost/rightmost value, how to determine which direction?
+    # run just binary_search with dummy arrays
 
 def fast_count_segments(starts, ends, points):
     cnt = [0] * len(points)
+    ordered = sorted(points)
+    print(points, ordered)
     #write your code here
     for i in range(len(starts)):
         if starts[i] == ends[i]:
-            cnt = binary_search(starts[i], points, 0, len(points)-1)
+            count = binary_search(starts[i], ordered, 0, len(points)-1)
         else:
-            left = binary_search(starts[i], points, 0, len(points)-1)
-            right = binary_search(ends[i], points, 0, len(points)-1)
-            cnt[i] = right - left
+            left = binary_search(starts[i], ordered, 0, len(points)-1)
+            right = binary_search(ends[i], ordered, 0, len(points)-1)
+            # take tuple range
+            # calculate number of points
+            # update cnt array, search for indexes in points
+            # matching search value
     return cnt
 
 
@@ -42,9 +63,8 @@ if __name__ == '__main__':
     starts = data[2:2 * n + 2:2]
     ends   = data[3:2 * n + 2:2]
     points = data[2 * n + 2:]
-    points.sort()
-    print(points)
-    print(starts, ends)
+    # print(points)
+    # print(starts, ends)
     #use fast_count_segments
     # cnt = naive_count_segments(starts, ends, points)
     # for x in cnt:
