@@ -7,37 +7,37 @@ def dist(x1, y1, x2, y2):
     # print('dist', x1, y1, x2, y2, math.sqrt((x1-x2)**2 + (y1-y2)**2))
     return math.sqrt((x1-x2)**2 + (y1-y2)**2)
 
-def minimum_distance(a, axis):
+def minimum_distance(ax, ay):
     #write your code here
-    # print(a)
+    # print('ax', ax)
     
-    if len(a) == 2:
-        return dist(a[0][0], a[0][1], a[1][0], a[1][1])
+    if len(ax) == 2:
+        return dist(ax[0][0], ax[0][1], ax[1][0], ax[1][1])
 
-    if len(a) == 3:
-        a1, a2, a3 = a[0], a[1], a[2]
-        d1 = dist(a1[0], a1[1], a2[0], a2[1]) 
-        d2 = dist(a2[0], a2[1], a3[0], a3[1]) 
-        d3 = dist(a1[0], a1[1], a3[0], a3[1])
+    if len(ax) == 3:
+        ax1, ax2, ax3 = ax[0], ax[1], ax[2]
+        d1 = dist(ax1[0], ax1[1], ax2[0], ax2[1]) 
+        d2 = dist(ax2[0], ax2[1], ax3[0], ax3[1]) 
+        d3 = dist(ax1[0], ax1[1], ax3[0], ax3[1])
         return min(d1, d2, d3)
     
-    mid = len(a) // 2 
-    s1 = a[:mid]
-    s2 = a[mid:]
+    mid = len(ax) // 2 
+    s1 = ax[:mid]
+    s2 = ax[mid:]
 
-    d = min(minimum_distance(s1, 0), minimum_distance(s2, 0))
+    d = min(minimum_distance(s1, ay), minimum_distance(s2, ay))
     #print('d', d)
     middle = -1
-    if len(a) % 2 == 0:
-        middle = (a[mid][axis] + a[mid-1][axis])/2
+    if len(ax) % 2 == 0:
+        middle = (ax[mid][0] + ax[mid-1][0])/2
     else:
-        middle = a[mid][axis]
+        middle = ax[mid][0]
     # generator???
     # do minimum_dist again on y version???
     # maybe an 'x', 'y' version for minimum_dist???
     # y version is broken, see array below
-    a_filtered = [ a[i] for i in range(len(a)) if abs(a[i][axis] - middle) <= d ]
-    a_filtered.sort(key=lambda tup: tup[1])
+    a_filtered = [ ay[i] for i in range(len(ay)) if abs(ay[i][0] - middle) <= d ]
+    # print('filter', a_filtered, d)
     # mid_y = len(a_filtered) // 2
     # sy1 = a_filtered[:mid_y]
     # sy2 = a_filtered[mid_y:]
@@ -53,7 +53,7 @@ def minimum_distance(a, axis):
     # too slow with nested loops
     for i in range(0, len(a_filtered)-1):
         for j in range(i+1, len(a_filtered)):
-            dst = dist(a[i][0], a[i][1], a[j][0], a[j][1])
+            dst = dist(a_filtered[i][0], a_filtered[i][1], a_filtered[j][0], a_filtered[j][1])
             d = min(d, dst)
     
     return d
@@ -78,9 +78,9 @@ if __name__ == '__main__':
     x = data[1::2]
     y = data[2::2]
     a = list(zip(x,y))
-    a.sort(key=lambda tup: tup[0])
-    
-    print("{0:.9f}".format(minimum_distance(a, 0)))
+    ax = sorted(a, key=lambda tup: tup[0])
+    ay = sorted(a, key=lambda tup: tup[1])
+    print("{0:.9f}".format(minimum_distance(ax, ay)))
     # a = [(1, 3), (1, 1), (2, 1), (3, 3), (4, 0)]
     
     # a.sort(key=lambda tup: tup[0])
