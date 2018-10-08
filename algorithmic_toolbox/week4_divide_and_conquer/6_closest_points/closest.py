@@ -23,16 +23,23 @@ def minimum_distance(a):
     s1 = a[:mid]
     s2 = a[mid:]
 
+    d = min(minimum_distance(s1), minimum_distance(s2))
+
     middle = -1
     if len(a) % 2 == 0:
-        
+        middle = (a[mid][0] + a[mid-1][0])/2
     else:
         middle = a[mid][0]
 
+    a_filtered = [ a[i] for i in range(len(a)) if a[i][0] <= d ]
+    # for i in range(len(a)):
+    #     if a[i][0] < d:
+    #         a_filtered.append(a[i])
+    print('\n', a_filtered, '\n')
     # filter points > x-mid out
     # sort by y
     # calc remaining dists and return min(d, d')
-    d = min(minimum_distance(s1), minimum_distance(s2))
+    
     return d
     
     # divide array by 2
