@@ -35,6 +35,7 @@ def minimum_distance(a):
     # needs to be filtered dist from mid line, not overall dist
     # generator???
     # do minimum_dist again on y version???
+    # maybe an 'x', 'y' version for minimum_dist???
     a_filtered = [ a[i] for i in range(len(a)) if abs(a[i][0] - middle) <= d ]
     a_filtered.sort(key=lambda tup: tup[1])
     y_dist = d
