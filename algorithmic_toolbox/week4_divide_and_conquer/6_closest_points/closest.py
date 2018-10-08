@@ -8,10 +8,11 @@ def dist(x1, y1, x2, y2):
 
 def minimum_distance(a):
     #write your code here
-    print(a)
+    #print(a)
     
     if len(a) == 2:
         return dist(a[0][0], a[0][1], a[1][0], a[1][1])
+
     if len(a) == 3:
         a1, a2, a3 = a[0], a[1], a[2]
         d1 = dist(a1[0], a1[1], a2[0], a2[1]) 
@@ -24,18 +25,27 @@ def minimum_distance(a):
     s2 = a[mid:]
 
     d = min(minimum_distance(s1), minimum_distance(s2))
-
+    #print('d', d)
     middle = -1
     if len(a) % 2 == 0:
         middle = (a[mid][0] + a[mid-1][0])/2
     else:
         middle = a[mid][0]
-
-    a_filtered = [ a[i] for i in range(len(a)) if a[i][0] <= d ]
+    #print('\nmiddle', middle, '\n')
+    # needs to be filtered dist from mid line, not overall dist
+    # generator???
+    # do minimum_dist again on y version???
+    a_filtered = [ a[i] for i in range(len(a)) if abs(a[i][0] - middle) <= d ]
+    a_filtered.sort(key=lambda tup: tup[1])
+    y_dist = d
+    for i in range(0, len(a_filtered)-1):
+        for j in range(i+1, len(a_filtered)):
+            dst = dist(a[i][0], a[i][1], a[j][0], a[j][1])
+            d = min(d, dst)
+            #print('dst', dst)
     # for i in range(len(a)):
     #     if a[i][0] < d:
     #         a_filtered.append(a[i])
-    print('\n', a_filtered, '\n')
     # filter points > x-mid out
     # sort by y
     # calc remaining dists and return min(d, d')
