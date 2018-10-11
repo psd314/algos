@@ -2,16 +2,22 @@
 import sys
 
 def optimal_sequence(n):
-    sequence = []
-    while n >= 1:
-        sequence.append(n)
-        if n % 3 == 0:
-            n = n // 3
-        elif n % 2 == 0:
-            n = n // 2
-        else:
-            n = n - 1
-    return reversed(sequence)
+    ops = [0]
+    for i in range(1, n+1):
+        print('i', i)
+        sequence = []
+        while i >= 1:
+            sequence.append(i)
+            if i % 3 == 0:
+                i = i // 3
+            elif i % 2 == 0:
+                i = i // 2
+            else:
+                i = i - 1
+        print('sequence', sequence)
+        ops.append(min(len(sequence), ops[i-1]+1))
+    return ops[1:]
+    print('len', len(ops))
 
 input = sys.stdin.read()
 n = int(input)
