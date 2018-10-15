@@ -4,9 +4,10 @@ import sys
 def optimal_sequence(n):
     ops = [0]
     for i in range(1, n+1):
-        print('i', i)
+        #print('i', i)
         sequence = []
         while i >= 1:
+            print('i', i)
             sequence.append(i)
             if i % 3 == 0:
                 i = i // 3
@@ -14,11 +15,14 @@ def optimal_sequence(n):
                 i = i // 2
             else:
                 i = i - 1
-        print('sequence', sequence)
-        ops.append(min(len(sequence), ops[i-1]+1))
-    return ops[1:]
-    print('len', len(ops))
-
+        ops.append(ops[-1]+1)
+        print('ops', ops)
+        if len(sequence) <= len(ops):
+            ops = sequence
+        # ops.append(min(len(sequence), ops[i-1]+1))
+    return reversed(ops)
+    #print('len', len(ops))
+# compare sequence length to just adding 1?
 input = sys.stdin.read()
 n = int(input)
 sequence = list(optimal_sequence(n))
