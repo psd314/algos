@@ -17,12 +17,15 @@ def partition3(a):
                 val = dp[i-1][j-w[i]] + w[i]
                 if dp[i][j] < val:
                     dp[i][j] = val
+    
     for d in dp:
         print(d)
     
     used1 = [False]*(knap+1)
     n = len(w)-1
     W = knap
+    if dp[n][W] != knap:
+        return 0
 
     while n >= 0 and W >= 0:
         print(dp[n])
