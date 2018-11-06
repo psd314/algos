@@ -21,7 +21,8 @@ def partition3(a):
     # for d in dp:
     #     print(d)
     
-    used1 = [False]*(knap+1)
+    # used1 = [False]*(knap+1)
+    used1 = [False]*len(w)
     n = len(w)-1
     W = knap
     if dp[n][W] != knap:
@@ -37,7 +38,6 @@ def partition3(a):
             # print('W', W, used1)
             used1[n] = True
             W -= w[n]
-
     w1 = [ w[i] for i in range(len(used1)) if used1[i] == False ]
     set1 = [ w[i] for i in range(len(used1)) if used1[i] == True]
 
@@ -71,6 +71,7 @@ def partition3(a):
             W1 -= w1[n1]
     rem = [ w1[i] for i in range(len(used2)) if used2[i] == False]
     set2 = [ w1[i] for i in range(len(used2)) if used2[i] == True]
+
     if sum(rem) == sum(set1) == sum(set2):
         return 1
     return 0
