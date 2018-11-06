@@ -7,6 +7,7 @@ def partition3(a):
         return 0
     knap = sum(a)//3
     w = [0] + a
+    w.sort(reverse=True)
     # print(knap)
     # print('w', w)
     dp = [ [0]*(knap+1) for i in range(len(w)) ]
@@ -53,12 +54,6 @@ def partition3(a):
     used2 = [False]*len(w1)
     n1 = len(w1)-1
     W1 = knap
-    # print()
-    # print(w1)
-    # print(n1, W1)
-    # print()
-    # for d1 in dp1:
-    #     print(d1)
 
     if dp1[n1][W1] != knap:
         return 0
